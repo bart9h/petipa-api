@@ -1,9 +1,23 @@
 namespace petipa {
 
+class App {
+	public:
+		data::LoginAtempt try_login (const std::string& user_id, const std::string& password);
+
+		std::vector<data::Project> get_project_list();
+		void open_project (const std::string& project_name, void* system_context);
+		std::string get_new_project_name (const std::string& old_name = "");
+		bool is_new_project_name_ok (const std::string& project_name);
+		std::string new_project();
+		bool rename_project (const std::string& old_name, const std::string& new_name);
+		std::string duplicate_project (const std::string& project_name);
+		bool delete_project (const std::string& project_name);
+		bool export_project (const std::string& project_name, const std::string& file_path);
+		bool import_project (const std::string& file_path);
+};
+
 class Editor {
 	public:
-
-		void run_editor (const std::string& project_file_path, void* system_context);
 
 		data::VisualizationOptions get_visualization_options() const;
 		void set_visualization_options (const data::VisualizationOptions&);

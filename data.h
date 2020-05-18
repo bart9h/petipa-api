@@ -8,6 +8,19 @@ namespace petipa
 		enum class PathDisplayParts { PAST, FUTURE, ALL };
 		enum class CharacterDisplayType { AVATAR, COLOR, NONE };
 
+		struct LoginAttempt
+		{
+			bool success;
+			std::time_t license_expiratio_time;
+			std::string error_message;
+		};
+
+		struct Project
+		{
+			std::string name;
+			std::time_t modification_time;
+		};
+
 		struct VisualizationOptions
 		{
 			PathDisplayParts show_path_parts;

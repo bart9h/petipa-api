@@ -9,6 +9,7 @@ class NativeUI {
 		void open_stage_dialog (petipa::Editor&);
 		void alert (const std::string& title, const std::string& text);
 		bool confirm (const std::string& title, const std::string& text);
+		void share_project (const std::string& project_path);
 };
 
 }
