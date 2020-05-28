@@ -34,26 +34,10 @@ foreach my $m (sort keys %methods) {
 		map { $methods{$m}->{$_} }
 		qw/pre method post/;
 
-	say join('',
-		'\\newcommand',
-		'{',
-			'\\',
-			$command,
-		'}',
-		'{',
-			"\n\t",
-			'\\begin{alltt}',
-			"\n\t\t",
-			$pre,
-			$methods{$m}->{namespace},
-			'::\\textbf',
-			'{',
-				$method,
-			'}',
-			$post,
-			"\n\t",
-			'\\end{alltt}',
-			"\n",
-		'}',
-	);
+	say '\\DefineAPI'
+		.'{'.$command.'}'
+		.'{'.$pre.$methods{$m}->{namespace}.'}'
+		.'{'.$method.'}'
+		.'{'.$post.'}'
+	;
 }
