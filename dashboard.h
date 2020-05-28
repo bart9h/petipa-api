@@ -34,13 +34,13 @@ namespace dashboard {
 
 	std::vector<data::ProjectListSection> get_project_list_sections (bool alphabetic_order);
 
-	void open_new_project (void* system_context);
-	void open_project (const std::string& project_name, void* system_context);
-	void import_and_open_project (const std::string& file_path, void* system_context);
-	void copy_and_open_project (const std::string& project_name, void* system_context);
-	void rename_project (const std::string& project_name);
-	void delete_project (const std::string& project_name);
-	void export_project (const std::string& project_name, const std::string& file_path);
+	bool open_new_project (void* system_context);
+	bool open_project (const std::string& project_name, void* system_context);
+	bool import_and_open_project (const std::string& file_path, void* system_context);
+	bool copy_and_open_project (const std::string& project_name, void* system_context);
+	bool rename_project (const std::string& old_name, const std::string& new_name);
+	bool delete_project (const std::string& project_name);
+	bool export_project (const std::string& project_name, const std::string& file_path);
 
 }}}
 

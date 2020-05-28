@@ -30,7 +30,7 @@ namespace editor {
 	};
 
 	VisualizationOptions get_visualization_options();
-	void set_visualization_options (const VisualizationOptions&);
+	bool set_visualization_options (const VisualizationOptions&);
 
 
 	struct Character
@@ -47,7 +47,7 @@ namespace editor {
 	std::vector<std::string> get_character_list();
 	Character get_character (const std::string& name);
 	std::string new_character();  // returns new character's name
-	bool delete_character (const std::string&);
+	bool delete_character (const std::string& name);
 	bool rename_character (const std::string& old_name, const std::string& new_name);
 	bool character_set_color (const std::string& name, const std::string& color);
 	bool character_set_avatar (const std::string& name, const std::string& image_path);
@@ -67,7 +67,7 @@ namespace editor {
 
 	std::vector<std::string> get_tag_list();
 	Tag get_tag (const std::string& label);
-	bool rename_tag (const std::string& old_label, const std::string& new_label);
+	bool rename_tag (const std::string& old_label, const std::string& new_name);
 	bool new_tag (const std::string& label);
 	bool delete_tag (const std::string& label);
 	bool set_tag_label_display_flag (const std::string& label, bool);
@@ -101,11 +101,9 @@ namespace editor {
 
 	Stage get_stage_definition();
 	std::vector<Stage> get_stage_list();
-	bool set_stage_width (double width);
-	bool set_stage_height (double height);
-	bool set_stage_image (const std::string* file_path);
 	bool load_stage_image (const std::string* file_path);
 	bool delete_stage_image (const std::string& file_path);
+	bool set_stage_definition (const Stage&);
 
 }}}
 
