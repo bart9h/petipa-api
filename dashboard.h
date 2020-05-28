@@ -17,6 +17,15 @@ namespace dashboard {
 	data::LoginAttempt try_login (const std::string& user_id, const std::string& password);
 
 
+	std::string get_top_banner_content();
+	std::string get_bottom_banner_content();
+	bool is_bottom_banner_visible();
+	void hide_bottom_banner();
+	bool is_dark_mode_enabled();
+	void toggle_dark_mode();
+	void logout();
+
+
 	struct Project {
 		std::string name;
 		std::string author;
@@ -28,9 +37,6 @@ namespace dashboard {
 		std::string label;
 		std::vector<data::Project> projects;
 	};
-
-	std::string get_top_banner_content();
-	std::string get_bottom_banner_content();
 
 	std::vector<data::ProjectListSection> get_project_list_sections (bool alphabetic_order);
 
