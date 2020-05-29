@@ -31,6 +31,7 @@ namespace dashboard {
 		std::string author;
 		std::time_t creation_time;
 		std::time_t modification_time;
+		std::time_t duration;
 	};
 
 	struct ProjectListSection {

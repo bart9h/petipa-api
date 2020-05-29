@@ -11,7 +11,7 @@ namespace editor {
 
 	struct VisualizationOptions
 	{
-		enum class DisplayAllTristate { DEFAULT, ALL, NONE };
+		enum class DisplayAll { DEFAULT, ALL, NONE };
 		enum class PathDisplayParts { PAST, FUTURE, ALL };
 		enum class CharacterDisplayType { AVATAR, COLOR, NONE };
 
@@ -25,14 +25,15 @@ namespace editor {
 		bool show_rulers;
 		bool show_evolutions;
 		CharacterDisplayType character_display_type;
-		DisplayAllTristate show_all_characters_path;
-		DisplayAllTristate show_all_characters_name;
-		DisplayAllTristate show_all_tags_path;
-		DisplayAllTristate show_all_tags_label;
+		DisplayAllTristate show_characters_path;
+		DisplayAllTristate show_characters_name;
+		DisplayAllTristate show_tags_path;
+		DisplayAllTristate show_tags_label;
 	};
 
 	VisualizationOptions get_visualization_options();
 	bool set_visualization_options (const VisualizationOptions&);
+	void cancel_visualization_options_changes();
 
 
 	struct Character
@@ -42,8 +43,6 @@ namespace editor {
 		std::string avatar_image_path;
 		std::vector<std::string> tags;
 		double size;
-		bool name_display_flag;
-		bool path_display_flag;
 	};
 
 	std::vector<std::string> get_character_list();
@@ -56,23 +55,19 @@ namespace editor {
 	bool character_set_size (const std::string& name, double size);
 	bool character_toggle_tag (const std::string& name, const std::string&* label);
 	bool character_set_name_display_flag (const std::string& name, bool);
+	bool character_get_name_display_flag (const std::string& name);
 	bool character_set_path_display_flag (const std::string& name, bool);
+	bool character_get_path_display_flag (const std::string& name);
 
-
-	struct Tag
-	{
-		std::string label;
-		bool label_display_flag;
-		bool path_display_flag;
-	};
 
 	std::vector<std::string> get_tag_list();
-	Tag get_tag (const std::string& label);
 	bool rename_tag (const std::string& old_label, const std::string& new_name);
 	bool new_tag (const std::string& label);
 	bool delete_tag (const std::string& label);
-	bool set_tag_label_display_flag (const std::string& label, bool);
-	bool set_tag_path_display_flag (const std::string& label, bool);
+	bool tag_set_label_display_flag (const std::string& label, bool);
+	bool tag_get_label_display_flag (const std::string& label);
+	bool tag_set_path_display_flag (const std::string& label, bool);
+	bool tag_get_path_display_flag (const std::string& label);
 
 
 	struct MusicDefinition
@@ -90,8 +85,8 @@ namespace editor {
 		std::string duration;
 	};
 
-	Music get_music_definition();
-	std::vector<Music> get_stock_music_list();
+	MusicDefinition get_music_definition();
+	std::vector<StockMusic> get_stock_music_list();
 	bool music_preview_play (const std::string& music_title);
 	bool music_preview_stop();
 	bool set_music_file (const std::string& music_path);
