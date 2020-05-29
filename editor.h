@@ -7,6 +7,8 @@ namespace petipa {
 namespace api {
 namespace editor {
 
+	void cancel_characters_and_tags_changes();
+
 	struct VisualizationOptions
 	{
 		enum class DisplayAllTristate { DEFAULT, ALL, NONE };
@@ -52,8 +54,7 @@ namespace editor {
 	bool character_set_color (const std::string& name, const std::string& color);
 	bool character_set_avatar (const std::string& name, const std::string& image_path);
 	bool character_set_size (const std::string& name, double size);
-	bool character_add_tag (const std::string& name, const std::string&* label);
-	bool character_remove_tag (const std::string& name, const std::string&* label);
+	bool character_toggle_tag (const std::string& name, const std::string&* label);
 	bool character_set_name_display_flag (const std::string& name, bool);
 	bool character_set_path_display_flag (const std::string& name, bool);
 
@@ -74,7 +75,15 @@ namespace editor {
 	bool set_tag_path_display_flag (const std::string& label, bool);
 
 
-	struct Music
+	struct MusicDefinition
+	{
+		enum class MusicDefinitionType { CUSTOM, STOCK, SILENCE } type;
+		std::string file_path;
+		std::string stock_title;
+		std::string duration;
+	};
+
+	struct StockMusic
 	{
 		std::string title;
 		std::string author;
