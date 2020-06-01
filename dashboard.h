@@ -7,15 +7,9 @@ namespace petipa {
 namespace api {
 namespace dashboard {
 
-	struct LoginAttempt {
-		bool success;
-		std::time_t license_expiratio_time;
-		std::string plan;
-		std::string error_message;
-	};
-
-	data::LoginAttempt try_login (const std::string& user_id, const std::string& password);
-
+	bool login (const std::string& user_id, const std::string& password);
+	bool saml_login (const std::string& provider);
+	void logout();
 
 	std::string get_top_banner_content();
 	std::string get_bottom_banner_content();
@@ -23,12 +17,11 @@ namespace dashboard {
 	void hide_bottom_banner();
 	bool is_dark_mode_enabled();
 	void toggle_dark_mode();
-	void logout();
-
 
 	struct Project {
 		std::string name;
 		std::string author;
+		std::string file_path;
 		std::time_t creation_time;
 		std::time_t modification_time;
 		std::time_t duration;

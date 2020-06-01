@@ -75,7 +75,9 @@ namespace editor {
 		enum class MusicDefinitionType { CUSTOM, STOCK, SILENCE } type;
 		std::string file_path;
 		std::string stock_title;
-		std::string duration;
+		unsigned int duration_hours;
+		unsigned int duration_minutes;
+		unsigned int duration_seconds;
 	};
 
 	struct StockMusic

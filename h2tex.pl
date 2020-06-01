@@ -4,40 +4,49 @@ use warnings;
 use v5.10;
 use Data::Dumper;
 
-my %methods;
+my %entries;
 
 foreach my $h (glob '*.h') {
 	my @namespace = ();
-	my $namespace;
+	our $namespace = '';
 	open (my $f, '<', $h)  or die "$h: $!\n";
 	foreach my $line (<$f>) {
+		sub add_entry {
+			my ($pre, $id, $post) = @_;
+			exists $entries{$id}  and die "duplicate key at \"$h\":\n$line\n";
+			$entries{$id} = { id => $id, pre => $pre, post => $post, namespace => $namespace };
+		}
 		if ($line =~ /^\s*namespace\s+(\w+)\b/) {
 			push @namespace, $1;
 			$namespace = join('::', @namespace);
 		}
 		elsif ($namespace and $line =~ /^\s*(.*?\ )(\w+)(\s*\(.*\);)/) {
 			my ($pre, $method, $post) = ($1, $2, $3);
-			exists $methods{$method}  and die "duplicate method at \"$h\":\n$line\n";
-			$methods{$method} = { pre => $pre, namespace => $namespace, method => $method, post => $post };
+			add_entry ($pre, $method, $post);
+		}
+		elsif ($namespace and $line =~ /^\s*struct\s+(\w+)\s*{?$/) {
+			my ($struct) = ($1);
+			#add_entry ('struct ', $struct, '');
 		}
 	}
 	close $f;
 }
 
-foreach my $m (sort keys %methods) {
-	my $command = $methods{$m}->{method};
+foreach my $m (sort keys %entries) {
+	my $command = $entries{$m}->{id};
 	$command =~ s/^(.)/uc($1)/eg;
 	$command =~ s/_(.)/uc($1)/eg;
 
-	my ($pre, $method, $post) =
+	my ($pre, $id, $post) =
 		map { s/([&_])/\\$1/g; $_ }
-		map { $methods{$m}->{$_} }
-		qw/pre method post/;
+		map { $entries{$m}->{$_} }
+		qw/pre id post/;
 
+	my $ns = $entries{$m}->{namespace};
 	say '\\DefineAPI'
 		.'{'.$command.'}'
-		.'{'.$pre.$methods{$m}->{namespace}.'}'
-		.'{'.$method.'}'
+		.'{'.$pre.(($ns =~ /native/) ? $ns.'::' : '').'}'
+		.'{'.$id.'}'
 		.'{'.$post.'}'
 	;
 }

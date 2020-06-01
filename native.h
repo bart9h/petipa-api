@@ -8,6 +8,8 @@ namespace native {
 	void open_characters_dialog (const std::string& character_name = "");
 	void open_music_dialog();
 	void open_stage_dialog();
+	void open_notifications_dialog();
+	void open_about_dialog();
 
 	void alert (const std::string& title, const std::string& text);
 	bool confirm (const std::string& title, const std::string& text);
